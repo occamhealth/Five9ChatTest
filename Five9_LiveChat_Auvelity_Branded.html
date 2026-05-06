@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <link id="icon" rel="icon" href="" />
+    <meta name="author" content="Aaron D. Thompson" />
+    <meta name="description" content="Five9 LiveChat Client" />
+    <meta name="keywords" content="Five9, LiveChat, Chat, Client, JavaScript, Plugin, Contact Center, Example, CSS" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+    <meta name="theme-color" content="#21174b" />
+    <title id="title">Auvelity Chat</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --auvelity-primary: #21174b;
+            --auvelity-secondary: #ffc000;
+            --auvelity-gray: #e5e5e5;
+            --auvelity-ink: #17181b;
+            --auvelity-ink-soft: #6b7280;
+            --auvelity-surface: #ffffff;
+            --auvelity-surface-muted: #f5f6f8;
+            --auvelity-shadow: 0 20px 42px rgba(25, 19, 54, 0.16);
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            background:
+                radial-gradient(circle at 20% 10%, rgba(255, 192, 0, 0.22), transparent 30%),
+                linear-gradient(135deg, #ffffff 0%, #f7f5ec 48%, #eef0f7 100%);
+            color: var(--auvelity-ink);
+            font-family: "Poppins", sans-serif;
+        }
+
+        .dark-mode {
+            background: var(--auvelity-primary);
+            color: white;
+        }
+
+        main {
+            display: grid;
+            min-height: 100vh;
+            place-items: center;
+            padding: 32px;
+        }
+
+        #pageTitle {
+            max-width: 680px;
+            color: var(--auvelity-primary);
+            font-size: clamp(32px, 5vw, 64px);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 0.96;
+            text-align: center;
+        }
+
+        #five9LiveChatWidget {
+            left: auto !important;
+            right: 24px !important;
+            bottom: 24px !important;
+            transform: none !important;
+        }
+
+        @media (max-width: 420px), (max-height: 520px) {
+            #five9LiveChatWidget {
+                right: 0 !important;
+                bottom: 0 !important;
+            }
+        }
+
+    </style>
+</head>
+<body>
+<noscript>You need to enable JavaScript to run this app.</noscript>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script src="https://live-chat.ps.five9.com/Five9ChatPlugin.js" type="text/javascript"></script>
+
+<main role="main" >
+  <h1 id="pageTitle">Auvelity Chat</h1>
+</main>
+
+<script>
+  function toggleDarkMode() {
+    let element = document.body;
+    element.classList.toggle('dark-mode');
+  }
+
+  async function intiFive9Chat(options) {
+    await Five9ChatPlugin(options);
+    //document.getElementById("icon").href = Five9ChatGetOption('icon');
+    //document.getElementById("title").innerHTML = Five9ChatGetOption('title') || '';
+    //document.getElementById("pageTitle").innerHTML = Five9ChatGetOption('title') || '';
+  }
+
+  $(document).ready(function () {
+    //let options = Five9ChatGetParameters(location.search);
+    // TODO: Remove the above line and replace with your options from the Designer below.
+     //let options = {
+    //   "appId": "Your App ID",
+    //   "configId": "Your Config ID",
+    //   "region": "USA"
+    // };
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const topic = urlParams.get('topic');
+    const themeUrl = new URL('Five9_Auvelity_LiveChat.css', window.location.href).href;
+    const closeIcon = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 6l12 12M18 6L6 18' stroke='%23fff' stroke-width='2.8' stroke-linecap='round'/%3E%3C/svg%3E";
+
+    let options = {
+      "appId": "Occam Health",
+      "description": "Auvelity Chat",
+      "domain": "Occam Health",
+      "campaignName": "Chat_Auvelity",
+      "addCustomerName": true,
+      "subtitle": "Auvelity Chat",
+      "chatStartImage": "https://www.auvelity.com/static/auvelity-logo-c4e0ab6fbf6d4a2f010836277ea1bb1a.svg",
+      "waitingImage": "https://live-chat.ps.five9.com/waiting-blue.gif",
+      "closeButton": closeIcon,
+      "minimizeButton": closeIcon,
+      "showEndButton": true,
+      "minimizeOnEnd": true,
+      "showButtons": true,
+      "btnEmailImageSelected": "",
+      "emailTranscriptText": "",
+      "launcherOpenText": "Chat",
+      "css": themeUrl,
+      "titleTextColor": "#ffffff",
+      "titleBackgroundColor": "#21174b",
+      "chatBackgroundColor": "#ffffff",
+      "scrollbarBackgroundColor": "#f5f6f8",
+      "scrollbarThumbColor": "#21174b",
+      "welcomeTextColor": "#17181b",
+      "welcomeBubbleColor": "#f5f6f8",
+      "agentTextColor": "#17181b",
+      "agentBubbleColor": "#f5f6f8",
+      "customerTextColor": "#21174b",
+      "customerBubbleColor": "#ffc000",
+      "inputTextColor": "#17181b",
+      "inputBackgroundColor": "#ffffff",
+      "buttonTextColor": "#21174b",
+      "buttonBackgroundColor": "#ffc000",
+      "miniLabelColor": "#17181b",
+      "miniTextColor": "#17181b",
+      "miniTextInputColor": "#17181b",
+      "miniTextInputBorderColor": "#e5e5e5",
+      "miniTextInputBackgroundColor": "#ffffff",
+      "miniBackgroundColor": "#ffffff",
+      "miniSubmitColor": "#21174b",
+      "miniSubmitBackgroundColor": "#ffc000",
+      "markRequiredColor": "#21174b",
+      "badgeColor": "#21174b",
+      "badgeBorderColor": "#ffffff",
+      "badgeIndicatorBackground": "#ffc000",
+      "openButtonCSS": "position: fixed; right: 24px; bottom: 24px; z-index: 100000; display: flex; align-items: center; justify-content: center; gap: 10px; min-width: 128px; height: 64px; padding: 0 22px; border: 0; border-radius: 999px; background: #21174b; box-shadow: 0 20px 42px rgba(25, 19, 54, 0.16); color: #ffffff; cursor: pointer; font-family: Poppins, sans-serif;",
+      "closeButtonCSS": "position: fixed; right: 24px; bottom: 24px; z-index: 100000; display: flex; align-items: center; justify-content: center; width: 64px; height: 64px; padding: 0; border: 0; border-radius: 999px; background: #21174b; box-shadow: 0 20px 42px rgba(25, 19, 54, 0.16); color: #ffffff; cursor: pointer; font-family: Poppins, sans-serif;",
+      "mobileOpenButtonCSS": "position: fixed; right: 18px; bottom: 18px; z-index: 100000; display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 116px; height: 58px; padding: 0 18px; border: 0; border-radius: 999px; background: #21174b; box-shadow: 0 16px 34px rgba(25, 19, 54, 0.18); color: #ffffff; cursor: pointer; font-family: Poppins, sans-serif;",
+      "mobileCloseButtonCSS": "position: fixed; right: 18px; bottom: 18px; z-index: 100000; display: flex; align-items: center; justify-content: center; width: 58px; height: 58px; padding: 0; border: 0; border-radius: 999px; background: #21174b; box-shadow: 0 16px 34px rgba(25, 19, 54, 0.18); color: #ffffff; cursor: pointer; font-family: Poppins, sans-serif;",
+      "launcherOpenTextCSS": "font-family: Poppins, sans-serif; font-size: 14px; font-weight: 700; line-height: 20px; color: #ffffff;",
+      "badgeIndicatorCSS": "background: #ffc000; border: 2px solid #ffffff;",
+      "badgeNotificationCSS": "background: #21174b; color: #ffffff; border: 2px solid #ffffff; font-family: Poppins, sans-serif; font-weight: 700;",
+      "chatButtonDisplayStyle": "flex",
+      "maxWidth": "392",
+      "maxHeight": "760",
+      "bottom": "24",
+      "right": "24",
+      "mobileWidth": "100%",
+      "mobileHeight": "100%",
+      "mobileBottom": "0",
+      "mobileRight": "0",
+      "mobileThresholdWidth": "420",
+      "mobileThresholdHeight": "520",
+      "miniForm": true,
+      "formMessage": "Please complete this form to start <br>your chat session.",
+      "attributes": [
+          {
+            "topic": topic
+          }
+        ],
+      "formData": [
+        {
+          "label": "Your Name",
+          "cav": "contact.name",
+          "formType": "both",
+          "type": "text",
+          "required": false
+        },
+        {
+          "label": "Email",
+          "cav": "contact.email",
+          "formType": "both",
+          "type": "email",
+          "required": false 
+        },
+        /*{
+          "label": "Question",
+          "cav": "Question",
+          "formType": "both",
+          "type": "textarea",
+          "required": true
+        }*/
+      ],
+      "clearForm": true,
+      "markRequiredFields": true,
+      "blockRestart": true,
+      "addCloseChat": true,
+      "alwaysShowMinimize": true,
+      "enableDisclaimer": true,
+      "requireDisclaimer": true,
+      "markDisclaimerRequired": true,
+      "centerDisclaimer": true,
+      "disclaimer": "By proceeding I confirm that I am 18 years of age or older. I agree and acknowledge that my personal information (which may include health information) will be processed as part of the Axsome OnMySide service. </br> <a href='https://www.axsome.com/terms-of-use' target='_blank'>Axsome Terms of Use</a></br> <a href='https://www.axsome.com/privacy-notice' target='_blank'>Axsome Privacy Notice</a>",
+      "disclaimerVar": "Consent",
+      "timezone": "America/New_York",
+      "font": "Poppins",
+      "fontSize": "16",
+      "fontChat": "Poppins",
+      "fontSizeChat": "15",
+      "fontChatInput": "Poppins",
+      "fontSizeChatInput": "15",
+      "fontForm": "Poppins",
+      "fontSizeForm": "15",
+      "fontFormInput": "Poppins",
+      "fontSizeFormInput": "15",
+      "fontMenu": "Poppins",
+      "fontSizeMenu": "14",
+      "fontTitle": "Poppins",
+      "fontSizeTitle": "18",
+      "miniSubmitColorCompleted": "#21174b",
+      "miniSubmitBackgroundColorCompleted": "#ffc000",
+      "closeChatText": "Close chat",
+      "launcherCloseLabel": "Close chat",
+      "callback": (event) => {
+        console.log("Chat Event:", event);
+      },
+      "auth": "5044dcf3-4fcc-46e6-a465-a689f7b04ac8"
+    }
+
+    if (options.darkMode) {
+      toggleDarkMode();
+    } else {
+      if (options.standAloneBackgroundColor) {
+        document.body.style.backgroundColor = options.standAloneBackgroundColor;
+      }
+      if (options.standAloneColor) {
+        document.body.style.color = options.standAloneColor;
+      }
+    }
+    intiFive9Chat(options);
+  });
+</script>
+
+</body>
+</html>
