@@ -1286,6 +1286,27 @@ body,
 .chat-start-image{
   max-width: 182px;
 }
+/* Required product/generic name caption under the Auvelity logo.
+   Targets only the logo instances (chatStartImage/errorImage, both tagged
+   with alt="Auvelity Logo" in the widget options) so the caption does not
+   also appear under the unrelated waiting/transcript/end-confirmation images,
+   which share the same "chat-start-image" class. Runs in every pre-chat
+   state (agent available, after hours, no agents logged in) because it is
+   tied to the logo image itself, not to any business-hours state. */
+img.chat-start-image[alt="Auvelity Logo"] {
+  display: block;
+  margin: 0 auto;
+}
+img.chat-start-image[alt="Auvelity Logo"] + *::before {
+  content: "Auvelity\00AE (dextromethorphan HBr and bupropion HCl)";
+  display: block;
+  text-align: center;
+  font-family: var(--f9-chat-font-family-form), sans-serif;
+  font-size: 11px;
+  line-height: 1.35;
+  color: var(--f9-chat-mini-form-text-color);
+  margin: 6px 0 14px;
+}
 .close-chat-button, .start-new-chat-button {
   border-radius: 999px;
   border-style: none !important;
