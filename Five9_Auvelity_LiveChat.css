@@ -94,9 +94,14 @@ body {
    caption are added here as generated content on .rcw-header itself rather
    than via the titleAvatar option. */
 .rcw-conversation-container .rcw-header::before {
-  content: url("https://occamhealth.github.io/Five9ChatTest/AuvelityOMS.png");
+  content: "";
   display: block;
   width: 110px;
+  aspect-ratio: 182 / 71.68;
+  background-image: url("https://occamhealth.github.io/Five9ChatTest/AuvelityOMS.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   margin-top: 2px;
 }
 .rcw-conversation-container .rcw-header::after {
