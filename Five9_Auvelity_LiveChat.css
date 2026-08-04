@@ -91,7 +91,13 @@ body {
    as the first message in the transcript ("WelcomeImage", from the
    chatStartImage option) once a chat actually connects. That image is the
    sole child of its .rcw-message wrapper, so the caption is appended to the
-   end of that same wrapper rather than as a sibling of the image itself. */
+   end of that same wrapper rather than as a sibling of the image itself.
+   .rcw-message is "display: flex" with no flex-direction (row by default),
+   which would otherwise place the image and caption side by side, so this
+   specific message is switched to a column layout to stack them. */
+.rcw-message:has(> img.chat-start-image[alt="Auvelity Logo"]) {
+  flex-direction: column;
+}
 .rcw-message:has(> img.chat-start-image[alt="Auvelity Logo"])::after {
   content: "Auvelity\00AE (dextromethorphan HBr and bupropion HCl)";
   display: block;
